@@ -1,0 +1,52 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PU.master.cs" Inherits="PowerUnlimited.PU" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title><%: Page.Title %></title>
+    <link href="Recorces/StyleSheet.css" rel="stylesheet"/>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+<div id="navBar">
+    <nav>
+        <div id="logo">
+            <asp:HyperLink runat="server" navigateurl="Paginas/MainPagina.aspx" ImageUrl="Recorces/Power_Unlimited_website_logo.jpg"/>
+        </div>
+        <div id="navbar2">
+            <input type="text" name="zoeken"/><asp:HyperLink runat="server" NavigateUrl="Paginas/zoekresultaten.aspx">
+                <button type="button">Zoeken</button>
+            </asp:HyperLink>
+            <asp:HyperLink runat="server" NavigateUrl="Paginas/CreateAccount.aspx">HELEMAAL VOOR GRATIS MEELULLEN (EN MEER!) <button type="button">Account aanmaken</button></asp:HyperLink>
+            <asp:HyperLink runat="server" NavigateUrl="Paginas/Login.aspx">
+                <button type="button">Login</button>
+            </asp:HyperLink>
+            <asp:Label runat="server" ID="logedinlabel" ForeColor="white"></asp:Label><br/>
+
+            <asp:HyperLink runat="server" NavigateUrl="Paginas/AllArtikels.aspx">
+                <button type="button">Artikel</button>
+            </asp:HyperLink>
+            <asp:HyperLink runat="server" NavigateUrl="Paginas/Games.aspx">
+                <button type="button">Games</button>
+            </asp:HyperLink>
+            <asp:HyperLink runat="server" NavigateUrl="Paginas/Community.aspx">
+                <button type="button">Community</button>
+            </asp:HyperLink>
+
+        </div>
+    </nav>
+</div><br/>
+<div>
+
+    <section id="section">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+        </asp:ContentPlaceHolder>
+    </section>
+
+</div>
+<footer>Door Sibe van Etten</footer>
+</body>
+</html>

@@ -1,0 +1,8 @@
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\bin\PowerUnlimited.dll.config
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\bin\PowerUnlimited.dll
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\bin\PowerUnlimited.pdb
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\obj\Debug\PowerUnlimited.csprojResolveAssemblyReference.cache
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\obj\Debug\PowerUnlimited.dll
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\obj\Debug\PowerUnlimited.pdb
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\bin\Recorces\Power_Unlimited_website_logo.jpg
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\PowerUnlimited\bin\Oracle.ManagedDataAccess.dll
