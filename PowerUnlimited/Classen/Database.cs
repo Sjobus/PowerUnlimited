@@ -151,47 +151,54 @@ namespace PowerUnlimited.Classen
         public List<Account> GetAlAccounts()
         {
             List<Account> accountlijst = new List<Account>();
-
-            using (OracleConnection conn = GetConnection())
+            try
             {
-                conn.Open();
-                string query = "select * from account";
-                using (OracleCommand cmd = new OracleCommand(query, conn))
+                using (OracleConnection conn = GetConnection())
                 {
-                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    conn.Open();
+                    string query = "select * from account";
+                    using (OracleCommand cmd = new OracleCommand(query, conn))
                     {
-                        while (reader.Read())
+                        using (OracleDataReader reader = cmd.ExecuteReader())
                         {
-                            switch (reader["ACCOUNTTYPE"].ToString())
+                            while (reader.Read())
                             {
-                                case "redacteur":
-                                    int accountId = Convert.ToInt32(reader["AccountNR"]);
-                                    string accountnaam = reader["NAAM"].ToString();
-                                    MailAddress email = new MailAddress(reader["email"].ToString());
-                                    string ww = reader["Wachtwoord"].ToString();
-                                    bool mod = Convert.ToBoolean(reader["MODERATOR"]);
+                                switch (reader["ACCOUNTTYPE"].ToString())
+                                {
+                                    case "redacteur":
+                                        int accountId = Convert.ToInt32(reader["AccountNR"]);
+                                        string accountnaam = reader["NAAM"].ToString();
+                                        MailAddress email = new MailAddress(reader["email"].ToString());
+                                        string ww = reader["Wachtwoord"].ToString();
+                                        bool mod = Convert.ToBoolean(reader["MODERATOR"]);
 
-                                    Redacteur re = new Redacteur(accountId, accountnaam, ww, email, mod);
-                                    accountlijst.Add(re);
+                                        Redacteur re = new Redacteur(accountId, accountnaam, ww, email, mod);
+                                        accountlijst.Add(re);
 
-                                    break;
-                                case "lid":
-                                    accountId = Convert.ToInt32(reader["AccountNR"]);
-                                    accountnaam = reader["NAAM"].ToString();
-                                    email = new MailAddress(reader["email"].ToString());
-                                    ww = reader["Wachtwoord"].ToString();
-                                    mod = Convert.ToBoolean(reader["MODERATOR"]);
-                                    Gebruiker ge = new Gebruiker(accountId, accountnaam, ww, email, mod);
-                                    accountlijst.Add(ge);
+                                        break;
+                                    case "lid":
+                                        accountId = Convert.ToInt32(reader["AccountNR"]);
+                                        accountnaam = reader["NAAM"].ToString();
+                                        email = new MailAddress(reader["email"].ToString());
+                                        ww = reader["Wachtwoord"].ToString();
+                                        mod = Convert.ToBoolean(reader["MODERATOR"]);
+                                        Gebruiker ge = new Gebruiker(accountId, accountnaam, ww, email, mod);
+                                        accountlijst.Add(ge);
 
-                                    break;
+                                        break;
+                                }
                             }
                         }
                     }
                 }
-                return accountlijst;
             }
-        }
+            catch (OracleException e)
+            {
+                Debug.WriteLine("Er kan geen verbinding worden gemaakt met de database. Error: "+ e.Message);
+            }
+            return accountlijst;
+            }
+        
         /// <summary>
         /// hall alle artikelen op
         /// </summary>
@@ -199,43 +206,51 @@ namespace PowerUnlimited.Classen
         public List<Artikel> GetAlArtikels()
         {
             List<Artikel> artikelList = new List<Artikel>();
-
-            using (OracleConnection conn = GetConnection())
+            try
             {
-                conn.Open();
-                string query = "select p.*,a.* from POST p, ARTIKEL a";
-                using (OracleCommand cmd = new OracleCommand(query, conn))
-                {
-                    using (OracleDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            switch (reader["postType"].ToString())
-                            {
-                                case "artikel":
-                                    int id = Convert.ToInt32(reader["POSTNR"]);
-                                    int prId = Convert.ToInt32(reader["POSTERNR"]);
-                                    string titel = reader["Titel"].ToString();
-                                    string body = reader["TEXT"].ToString();
-                                    DateTime date = Convert.ToDateTime(reader["Datum"]);
-                                    string at = reader["ARTIKELTYPE"].ToString();
-                                    int arID = Convert.ToInt32(reader["PostID"]);
 
-                                    foreach (Account a  in accounts)
-                                    {
-                                        if (a.AccountId == prId)
+                using (OracleConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    string query = "select p.*,a.* from POST p, ARTIKEL a";
+                    using (OracleCommand cmd = new OracleCommand(query, conn))
+                    {
+                        using (OracleDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                switch (reader["postType"].ToString())
+                                {
+                                    case "artikel":
+                                        int id = Convert.ToInt32(reader["POSTNR"]);
+                                        int prId = Convert.ToInt32(reader["POSTERNR"]);
+                                        string titel = reader["Titel"].ToString();
+                                        string body = reader["TEXT"].ToString();
+                                        DateTime date = Convert.ToDateTime(reader["Datum"]);
+                                        string at = reader["ARTIKELTYPE"].ToString();
+                                        int arID = Convert.ToInt32(reader["PostID"]);
+
+                                        foreach (Account a  in accounts)
                                         {
-                                            Artikel ar = new Artikel(id, titel, body, date, a, "Actie");
-                                            artikelList.Add(ar);
+                                            if (a.AccountId == prId)
+                                            {
+                                                Artikel ar = new Artikel(id, titel, body, date, a, "Actie");
+                                                artikelList.Add(ar);
+                                            }
                                         }
-                                    }
-                                    break;
+                                        break;
+                                }
                             }
                         }
                     }
+
                 }
-                return artikelList;
             }
+            catch (OracleException e)
+            {
+                Debug.WriteLine("Er is iet mis gegaan. Error: "+ e.Message);
+            }
+            return artikelList;
         }
         /// <summary>
         /// haal alle threads op
