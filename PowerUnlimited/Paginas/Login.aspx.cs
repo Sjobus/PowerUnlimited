@@ -29,6 +29,7 @@ namespace PowerUnlimited.Paginas
         protected void btnLogout_OnClick(object sender, EventArgs e)
         {
             Database.Instance.Logout();
+            Response.Redirect("MainPagina.aspx");
         }
     }
 }

@@ -10,7 +10,11 @@
             <asp:Button ID="loginSubmit" runat="server" Text="Login" OnClick="SubmitLoginForm"/>
         </div>
         <div id="LogoutDiv" runat="server">
-            <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_OnClick"/>
+            <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_OnClick"/><br/>
+            <asp:HyperLink runat="server" NavigateUrl="NewPost.aspx">
+                <Button type="button">Maak een nieuwe post</Button>
+            </asp:HyperLink>
+            
         </div>
 
     </form><br/>
