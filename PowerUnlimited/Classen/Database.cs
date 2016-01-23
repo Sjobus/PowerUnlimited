@@ -22,7 +22,7 @@ namespace PowerUnlimited.Classen
         private const string databseString =
             "User Id=dbi325455;Password=PYvRaqVTfP;Data Source=fhictora01.fhict.local:1521/fhictora;";
         // de ingelogde gebruiker
-        public IAccount WebGebruiker { get; set; }
+        public IAccount WebGebruiker { get; private set; }
         //database instance
         public static Database Instance
         {

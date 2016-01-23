@@ -16,7 +16,7 @@ namespace PowerUnlimited.Paginas
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Database.Instance.GetAlAccounts();
+            Database.Instance.KrijgAlleAccounts();
             if (!Page.IsPostBack)
             {
                 Upadte();
@@ -36,7 +36,7 @@ namespace PowerUnlimited.Paginas
             {
                 string btnText = post.ToString();
                 LBArtikelen.Items.Add(post.ToString());
-                myButton.Text = "fucking bitch nigger";
+                myButton.Text = "een knop";
                 myButton.PostBackUrl = "Paginas/Login.aspx";
                 myButton.ID = Convert.ToString(post.PostId);
                 myButton.Visible = true;
