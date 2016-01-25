@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using PowerUnlimited.Classen;
 
 namespace PowerUnlimited.Paginas
 {
@@ -12,6 +13,17 @@ namespace PowerUnlimited.Paginas
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void UploadArtikel(object o, EventArgs eventArgs)
+        {
+            string at = ASoort.SelectedItem.ToString();
+            string titel = tbTitel.Text;
+            string body = tbBody.Text;
+            Database.Instance.Uploadartikel(at, titel, body);
+            Response.Redirect("MainPagina.aspx");
+            
+            
         }
     }
 }

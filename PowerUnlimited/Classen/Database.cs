@@ -77,9 +77,10 @@ namespace PowerUnlimited.Classen
                                 string naam = reader["NAAM"].ToString();
                                 string userEmail = reader["EMAIL"].ToString();
                                 int userID = Convert.ToInt32(reader["ACCOUNTNR"]);
+                                string accountType = reader["ACCOUNTTYPE"].ToString();
                                 if (wachtwoord == userwachtwoord && email.Address == userEmail)
                                 {
-                                    WebGebruiker = new IAccount(userID, naam, new MailAddress(userEmail));
+                                    WebGebruiker = new IAccount(userID, naam, new MailAddress(userEmail),accountType);
                                 }
                             }
                         }
@@ -88,7 +89,7 @@ namespace PowerUnlimited.Classen
             }
             catch (OracleException e)
             {
-                Debug.WriteLine("Oops!! Er is iets misgegaan, Error: " + e.Message);
+                Debug.WriteLine("Oops!! Er is iets misgegaan. Error: " + e.Message);
             }
             return WebGebruiker;
         }
@@ -126,9 +127,45 @@ namespace PowerUnlimited.Classen
             }
             catch (OracleException e)
             {
-                Debug.WriteLine("Oops er is iets mis met de baklap van een server, error: " + e.Message);
+                Debug.WriteLine("Er is een server error. Error: " + e.Message);
             }
             return null;
+        }
+        
+        /// <summary>
+        /// Slaat een nieuw artikel op in de database.
+        /// </summary>
+        /// <param name="artikeltype"></param>
+        /// <param name="titel"></param>
+        /// <param name="body"></param>
+        public void Uploadartikel(string artikeltype, string titel, string body)
+        {
+            try
+            {
+                using (OracleConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    string query =
+                        "INSERT INTO POST(POSTNR,POSTERNR,TITEL,TEXT,POSTTYPE,DATUM)VALUES(seq_Account.nextval,'" +
+                        WebGebruiker.ID +
+                        "','" + titel + "','" + body + "','artikel',current_timestamp)";
+                    string query2 = " INSERT INTO ARTIKEL(POSTID,ARTIKELTYPE) VALUES((Select POSTNR from POST where TITEL ='"
+                        + titel + "'),'" + artikeltype + "')";
+                    using (OracleCommand cmd = new OracleCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    using (OracleCommand cmd2 = new OracleCommand(query2, conn))
+                    {
+                        cmd2.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (OracleException e)
+            {
+                
+                Debug.WriteLine("Er is een fout opgetreden bij het maken van een nieuw artikel. Error: "+ e.Message);
+            }
         }
 
         public object IAccount { get; set; }
