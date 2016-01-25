@@ -1,0 +1,9 @@
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\bin\Debug\Recorces\Power_Unlimited_website_logo.jpg
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\bin\Debug\UnitTestProject1.dll
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\bin\Debug\UnitTestProject1.pdb
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\bin\Debug\PowerUnlimited.dll
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\bin\Debug\PowerUnlimited.pdb
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\obj\Debug\UnitTestProject1.csprojResolveAssemblyReference.cache
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\obj\Debug\UnitTestProject1.dll
+C:\Users\Sibe\Desktop\SE2\PowerUnlimited\UnitTestProject1\obj\Debug\UnitTestProject1.pdb
