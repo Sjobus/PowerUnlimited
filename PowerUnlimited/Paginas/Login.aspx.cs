@@ -11,10 +11,25 @@ namespace PowerUnlimited.Paginas
 {
     public partial class Login : System.Web.UI.Page
     {
+        
+        private bool loggdin = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             LoginDiv.Visible = Database.Instance.WebGebruiker == null;
             LogoutDiv.Visible = Database.Instance.WebGebruiker != null;
+            ATDiv.Visible = false;
+            if (Database.Instance.WebGebruiker != null)
+            {
+                loggdin = true;
+            }
+            if (loggdin)
+            {
+                if (Database.Instance.WebGebruiker.AccountType == "redacteur")
+                {
+                    ATDiv.Visible = true;
+                }
+            }
+            
         }
 
         protected void SubmitLoginForm(object o, EventArgs eventArgs)
