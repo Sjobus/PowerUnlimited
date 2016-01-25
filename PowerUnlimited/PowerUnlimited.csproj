@@ -66,6 +66,7 @@
     <Content Include="Paginas\AllArtikels.aspx" />
     <Content Include="Paginas\Login.aspx" />
     <Content Include="Paginas\NewPost.aspx" />
+    <Content Include="Paginas\NewThread.aspx" />
     <Content Include="PU.Master" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
@@ -148,6 +149,13 @@
     </Compile>
     <Compile Include="Paginas\NewPost.aspx.designer.cs">
       <DependentUpon>NewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\NewThread.aspx.cs">
+      <DependentUpon>NewThread.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Paginas\NewThread.aspx.designer.cs">
+      <DependentUpon>NewThread.aspx</DependentUpon>
     </Compile>
     <Compile Include="Paginas\zoekresultaten.aspx.cs">
       <DependentUpon>zoekresultaten.aspx</DependentUpon>

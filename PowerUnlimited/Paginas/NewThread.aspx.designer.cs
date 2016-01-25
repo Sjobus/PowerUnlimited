@@ -10,33 +10,24 @@
 namespace PowerUnlimited.Paginas {
     
     
-    public partial class Community {
+    public partial class NewThread {
         
         /// <summary>
-        /// threadform control.
+        /// tbTitel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm threadform;
+        protected global::System.Web.UI.WebControls.TextBox tbTitel;
         
         /// <summary>
-        /// LoginDiv control.
+        /// tbBody control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LoginDiv;
-        
-        /// <summary>
-        /// LBThread control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox LBThread;
+        protected global::System.Web.UI.WebControls.TextBox tbBody;
     }
 }

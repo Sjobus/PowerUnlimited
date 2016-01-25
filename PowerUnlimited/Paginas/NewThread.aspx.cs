@@ -8,19 +8,17 @@ using PowerUnlimited.Classen;
 
 namespace PowerUnlimited.Paginas
 {
-    public partial class NewPost : System.Web.UI.Page
+    public partial class NewThread : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-
-        protected void UploadArtikel(object o, EventArgs eventArgs)
+        protected void UploadThread(object o, EventArgs eventArgs)
         {
-            string at = ASoort.SelectedItem.ToString();
             string titel = tbTitel.Text;
             string body = tbBody.Text;
-            Database.Instance.Uploadartikel(at, titel, body);
+            Database.Instance.UploadThread(titel, body);
             Response.Redirect("MainPagina.aspx");
         }
     }

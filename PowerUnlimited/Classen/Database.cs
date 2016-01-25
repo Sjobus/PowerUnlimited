@@ -149,7 +149,7 @@ namespace PowerUnlimited.Classen
                         "INSERT INTO POST(POSTNR,POSTERNR,TITEL,TEXT,POSTTYPE,DATUM)VALUES(seq_Account.nextval,'" +
                         WebGebruiker.ID +
                         "','" + titel + "','" + body + "','artikel',current_timestamp)";
-                    string query2 = " INSERT INTO ARTIKEL(POSTID,ARTIKELTYPE) VALUES((Select POSTNR from POST where TITEL ='"
+                    string query2 = "INSERT INTO ARTIKEL(POSTID,ARTIKELTYPE) VALUES((Select POSTNR from POST where TITEL ='"
                         + titel + "'),'" + artikeltype + "')";
                     using (OracleCommand cmd = new OracleCommand(query, conn))
                     {
@@ -168,6 +168,35 @@ namespace PowerUnlimited.Classen
             }
         }
 
+        public void UploadThread(string titel, string body)
+        {
+            try
+            {
+                using (OracleConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    string query =
+                        "INSERT INTO POST(POSTNR,POSTERNR,TITEL,TEXT,POSTTYPE,DATUM)VALUES(seq_Account.nextval,'" +
+                        WebGebruiker.ID +
+                        "','" + titel + "','" + body + "','thread',current_timestamp)";
+                    string query2 = "INSERT INTO THREAD_TABLE(POSTID,THREADOPEN) VALUES((Select POSTNR from POST where TITEL ='"
+                        + titel + "'),1)";
+                    using (OracleCommand cmd = new OracleCommand(query, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    using (OracleCommand cmd2 = new OracleCommand(query2, conn))
+                    {
+                        cmd2.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (OracleException e)
+            {
+
+                Debug.WriteLine("Er is een fout opgetreden bij het maken van een nieuw artikel. Error: " + e.Message);
+            }
+        }
         public object IAccount { get; set; }
         /// <summary>
         /// haal alle cach accounts op
@@ -315,7 +344,7 @@ namespace PowerUnlimited.Classen
                                     string body = reader["TEXT"].ToString();
                                     DateTime date = Convert.ToDateTime(reader["Datum"]);
                                     int arID = Convert.ToInt32(reader["PostID"]);
-                                    bool open = Convert.ToBoolean(reader["THREADOPEN"]);
+                                    bool open = true;
                                     foreach (Account a  in accounts)
                                     {
                                         if (a.AccountId == prId)
