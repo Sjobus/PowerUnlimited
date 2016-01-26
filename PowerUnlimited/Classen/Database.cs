@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.UI.WebControls;
 using Oracle.ManagedDataAccess.Client;
@@ -21,6 +22,7 @@ namespace PowerUnlimited.Classen
         // de connectie string voor de database
         private const string databseString =
             "User Id=dbi325455;Password=PYvRaqVTfP;Data Source=fhictora01.fhict.local:1521/fhictora;";
+
         // de ingelogde gebruiker
         public IAccount WebGebruiker { get; private set; }
         //database instance
@@ -28,6 +30,7 @@ namespace PowerUnlimited.Classen
         {
             get { return instance ?? (instance = new Database()); }
         }
+
         // kijken of ik verbinding kan maken met de database
         private Database()
         {
@@ -52,6 +55,7 @@ namespace PowerUnlimited.Classen
         {
             return new OracleConnection(databseString);
         }
+
         /// <summary>
         /// Log een gebruiker in.
         /// </summary>
@@ -80,7 +84,7 @@ namespace PowerUnlimited.Classen
                                 string accountType = reader["ACCOUNTTYPE"].ToString();
                                 if (wachtwoord == userwachtwoord && email.Address == userEmail)
                                 {
-                                    WebGebruiker = new IAccount(userID, naam, new MailAddress(userEmail),accountType);
+                                    WebGebruiker = new IAccount(userID, naam, new MailAddress(userEmail), accountType);
                                 }
                             }
                         }
@@ -93,6 +97,7 @@ namespace PowerUnlimited.Classen
             }
             return WebGebruiker;
         }
+
         /// <summary>
         /// log de ingelogde gebruiker uit
         /// </summary>
@@ -100,6 +105,39 @@ namespace PowerUnlimited.Classen
         {
             WebGebruiker = null;
         }
+
+        /// <summary>
+        /// Methode voor de unitests.
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public string GetCount(string query)
+        {
+            string nummer = null;
+            try
+            {
+                using (OracleConnection conn = GetConnection())
+                {
+                    conn.Open();
+                    using (OracleCommand cmd = new OracleCommand(query, conn))
+                    {
+                        using (OracleDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                nummer = reader["teller"].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return nummer;
+        }
+
         /// <summary>
         /// maakt een nieuwe account aan en schrijft hem naar de database
         /// </summary>
@@ -120,7 +158,7 @@ namespace PowerUnlimited.Classen
                                    " VALUES(seq_Account.nextval,'" + username + "','" + email.Address + "','" +
                                    wachwoord +
                                    "','" + accounType + "')";
-                    
+
                     using (OracleCommand cmd = new OracleCommand(query, conn))
                     {
                         cmd.ExecuteNonQuery();
@@ -133,7 +171,7 @@ namespace PowerUnlimited.Classen
             }
             return account;
         }
-        
+
         /// <summary>
         /// Slaat een nieuw artikel op in de database.
         /// </summary>
@@ -152,7 +190,7 @@ namespace PowerUnlimited.Classen
                         WebGebruiker.ID +
                         "','" + titel + "','" + body + "','artikel',current_timestamp)";
                     string query2 = "INSERT INTO ARTIKEL(POSTID,ARTIKELTYPE) VALUES((Select POSTNR from POST where TITEL ='"
-                        + titel + "'),'" + artikeltype + "')";
+                                    + titel + "'),'" + artikeltype + "')";
                     using (OracleCommand cmd = new OracleCommand(query, conn))
                     {
                         cmd.ExecuteNonQuery();
@@ -165,8 +203,7 @@ namespace PowerUnlimited.Classen
             }
             catch (OracleException e)
             {
-                
-                Debug.WriteLine("Er is een fout opgetreden bij het maken van een nieuw artikel. Error: "+ e.Message);
+                Debug.WriteLine("Er is een fout opgetreden bij het maken van een nieuw artikel. Error: " + e.Message);
             }
         }
 
@@ -182,7 +219,7 @@ namespace PowerUnlimited.Classen
                         WebGebruiker.ID +
                         "','" + titel + "','" + body + "','thread',current_timestamp)";
                     string query2 = "INSERT INTO THREAD_TABLE(POSTID,THREADOPEN) VALUES((Select POSTNR from POST where TITEL ='"
-                        + titel + "'),1)";
+                                    + titel + "'),1)";
                     using (OracleCommand cmd = new OracleCommand(query, conn))
                     {
                         cmd.ExecuteNonQuery();
@@ -195,11 +232,12 @@ namespace PowerUnlimited.Classen
             }
             catch (OracleException e)
             {
-
                 Debug.WriteLine("Er is een fout opgetreden bij het maken van een nieuw artikel. Error: " + e.Message);
             }
         }
+
         public object IAccount { get; set; }
+
         /// <summary>
         /// haal alle cach accounts op
         /// </summary>
@@ -212,6 +250,7 @@ namespace PowerUnlimited.Classen
             }
             return accounts;
         }
+
         /// <summary>
         /// haal alle account op
         /// </summary>
@@ -262,11 +301,11 @@ namespace PowerUnlimited.Classen
             }
             catch (OracleException e)
             {
-                Debug.WriteLine("Er kan geen verbinding worden gemaakt met de database. Error: "+ e.Message);
+                Debug.WriteLine("Er kan geen verbinding worden gemaakt met de database. Error: " + e.Message);
             }
             return accountlijst;
-            }
-        
+        }
+
         /// <summary>
         /// hall alle artikelen op
         /// </summary>
@@ -276,7 +315,6 @@ namespace PowerUnlimited.Classen
             List<Artikel> artikelList = new List<Artikel>();
             try
             {
-
                 using (OracleConnection conn = GetConnection())
                 {
                     conn.Open();
@@ -311,15 +349,15 @@ namespace PowerUnlimited.Classen
                             }
                         }
                     }
-
                 }
             }
             catch (OracleException e)
             {
-                Debug.WriteLine("Er is iet mis gegaan. Error: "+ e.Message);
+                Debug.WriteLine("Er is iet mis gegaan. Error: " + e.Message);
             }
             return artikelList;
         }
+
         /// <summary>
         /// haal alle threads op
         /// </summary>

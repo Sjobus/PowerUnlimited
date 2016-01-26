@@ -19,7 +19,7 @@ namespace PowerUnlimited.Classen
 
         public override string ToString()
         {
-            return "Titel: "+ Titel + " Door: " + Door.Naam;
+            return "Titel: " + Titel + " Door: " + Door.Naam;
         }
     }
 }

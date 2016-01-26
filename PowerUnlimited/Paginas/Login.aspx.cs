@@ -11,8 +11,8 @@ namespace PowerUnlimited.Paginas
 {
     public partial class Login : System.Web.UI.Page
     {
-        
         private bool loggdin = false;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             LoginDiv.Visible = Database.Instance.WebGebruiker == null;
@@ -29,7 +29,6 @@ namespace PowerUnlimited.Paginas
                     ATDiv.Visible = true;
                 }
             }
-            
         }
 
         protected void SubmitLoginForm(object o, EventArgs eventArgs)

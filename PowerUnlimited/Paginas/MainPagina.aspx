@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <p> Welkom BakLappen op PU.NL</p><br/>
     <form ID="artikelform" runat="server">
-        <asp:ListBox ID="LBArtikelen"  Width="500" On runat="server" /><br/>
+        <asp:ListBox ID="LBArtikelen" Width="500" On runat="server"/><br/>
 
     </form>
 </asp:Content>

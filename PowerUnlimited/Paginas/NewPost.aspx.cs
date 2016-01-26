@@ -12,7 +12,6 @@ namespace PowerUnlimited.Paginas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void UploadArtikel(object o, EventArgs eventArgs)

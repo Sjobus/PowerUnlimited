@@ -7,8 +7,8 @@ namespace PowerUnlimited.Classen
 {
     public class Verkoop
     {
-        public int verkoopId;
-        public double totaal;
+        public int verkoopId { get; set; }
+        public double totaal { get; set; }
 
         public Verkoop(int verkoopId, double totaal)
         {

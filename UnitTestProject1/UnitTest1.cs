@@ -9,9 +9,10 @@ namespace UnitTestProject1
     public class UnitTest1
     {
         [TestMethod]
+        // test het inloggen van een gebruiker.
         public void TestLogin()
         {
-            // test login
+            
             MailAddress mail = new MailAddress("Jan@jan.nl");
             string naam = "JAN";
             int verwachtAccountId = 22;
@@ -22,9 +23,12 @@ namespace UnitTestProject1
             Assert.AreEqual(verwachtAccountType,Database.Instance.WebGebruiker.AccountType,"AccountType incorrect.");
 
         }
+
     [TestMethod]
+        // test het aanmaken van een account.
         public void TestGetAccountCreate()
         {
+           
             int verwachtID = 1;
             string verwachtNaam = "Cees";
             string verwachtWW = "qwerty";
@@ -35,6 +39,41 @@ namespace UnitTestProject1
             Assert.AreEqual(verwachtNaam,testGebruiker.Naam,"Gebruikernaam incorrect.");
             Assert.AreEqual(verwachtWW,testGebruiker.Wachtwoord,"Wachtwoord inccorect.");
             Assert.AreEqual(verwachtEmail,testGebruiker.Email.ToString(),"Email incorrect.");
+        }
+
+        [TestMethod]
+        // Test het uploaden van artikelen door eerst te tellen hoeveel post er in de databse zitten.
+        // dan er een toe te voegen en het totaal weer op vragen. die twee vergelijk ik met elkaar.
+        public void TestUploadArtikel()
+        {
+            string query = "Select Count(POSTNR) as teller from  post";
+            int countVoor = Convert.ToInt32(Database.Instance.GetCount(query));
+            int countVerwacht = countVoor + 1;
+            Database.Instance.Login(new MailAddress("Jan@jan.nl"), "QWERTY");
+            Database.Instance.Uploadartikel("N8W8","UnitTest","Unitest");
+            int countNa = Convert.ToInt32(Database.Instance.GetCount(query));
+            Assert.AreEqual(countVerwacht,countNa,"het is niet gelukt om iet te uploaden");
+        }
+
+        [TestMethod]
+        // test het uploaden van een thread naar de database.
+        public void TestUploadThread()
+        {
+            string query = "Select Count(POSTNR) as teller from  post";
+            int countVoor = Convert.ToInt32(Database.Instance.GetCount(query));
+            Database.Instance.Login(new MailAddress("Jan@jan.nl"), "QWERTY");
+            Database.Instance.UploadThread("UniThread","UniThread body");
+            int countNa = Convert.ToInt32(Database.Instance.GetCount(query));
+            Assert.AreNotEqual(countVoor,countNa,"Ze zijn wel gelijk :(");
+        }
+
+        [TestMethod]
+        // test het uitloggen van de ingelogde gebruiker.
+        public void TestLogout()
+        {
+            IAccount testVoor =Database.Instance.Login(new MailAddress("Jan@jan.nl"), "QWERTY");
+            Database.Instance.Logout();
+            Assert.AreNotEqual(testVoor,Database.Instance.WebGebruiker,"ze zijn niet het zelfde");
         }
     }
 }

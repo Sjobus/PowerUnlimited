@@ -9,11 +9,11 @@
             <asp:ListItem>Artikel</asp:ListItem>
             <asp:ListItem>Blog</asp:ListItem>
             <asp:ListItem>Review</asp:ListItem>
-            </asp:RadioButtonList>
-    <asp:Label Text="Titel" Font-Size="12"  runat="server"></asp:Label><br/>
-    <asp:TextBox ID="tbTitel" Columns="30"  runat="server"></asp:TextBox></><br/>
-    <asp:Label Text="Body" Font-Size="12"  runat="server"></asp:Label><br/>
-    <asp:TextBox ID="tbBody" Rows="30" Columns="30" TextMode="MultiLine" runat="server"></asp:TextBox><br/>
-    <asp:Button Text="Maakaan" runat="server" OnClick="UploadArtikel"/>   
+        </asp:RadioButtonList>
+        <asp:Label Text="Titel" Font-Size="12" runat="server"></asp:Label><br/>
+        <asp:TextBox ID="tbTitel" Columns="30" runat="server"></asp:TextBox></><br/>
+        <asp:Label Text="Body" Font-Size="12" runat="server"></asp:Label><br/>
+        <asp:TextBox ID="tbBody" Rows="30" Columns="30" TextMode="MultiLine" runat="server"></asp:TextBox><br/>
+        <asp:Button Text="Maakaan" runat="server" OnClick="UploadArtikel"/>
     </form>
 </asp:Content>
