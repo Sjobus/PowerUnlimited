@@ -11,6 +11,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestLogin()
         {
+            // test login
             MailAddress mail = new MailAddress("Jan@jan.nl");
             string naam = "JAN";
             int verwachtAccountId = 22;
@@ -20,6 +21,20 @@ namespace UnitTestProject1
             Assert.AreEqual(naam,Database.Instance.WebGebruiker.GebruikerNaam,"Gebruikernaam incorrect.");
             Assert.AreEqual(verwachtAccountType,Database.Instance.WebGebruiker.AccountType,"AccountType incorrect.");
 
+        }
+    [TestMethod]
+        public void TestGetAccountCreate()
+        {
+            int verwachtID = 1;
+            string verwachtNaam = "Cees";
+            string verwachtWW = "qwerty";
+            string verwachtEmail = "Cees@hotmail.com";
+            MailAddress mail = new MailAddress("Cees@hotmail.com");
+            Gebruiker testGebruiker = Database.Instance.CreateAccount("Cees",mail,"qwerty");
+            Assert.AreEqual(verwachtID,testGebruiker.AccountId,"AccountID incorrect.");
+            Assert.AreEqual(verwachtNaam,testGebruiker.Naam,"Gebruikernaam incorrect.");
+            Assert.AreEqual(verwachtWW,testGebruiker.Wachtwoord,"Wachtwoord inccorect.");
+            Assert.AreEqual(verwachtEmail,testGebruiker.Email.ToString(),"Email incorrect.");
         }
     }
 }

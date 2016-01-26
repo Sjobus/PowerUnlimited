@@ -109,6 +109,7 @@ namespace PowerUnlimited.Classen
         /// <returns></returns>
         public Gebruiker CreateAccount(string username, MailAddress email, string wachwoord)
         {
+            Gebruiker account = new Gebruiker(1, username, wachwoord, email, false);
             try
             {
                 using (OracleConnection conn = GetConnection())
@@ -119,6 +120,7 @@ namespace PowerUnlimited.Classen
                                    " VALUES(seq_Account.nextval,'" + username + "','" + email.Address + "','" +
                                    wachwoord +
                                    "','" + accounType + "')";
+                    
                     using (OracleCommand cmd = new OracleCommand(query, conn))
                     {
                         cmd.ExecuteNonQuery();
@@ -129,7 +131,7 @@ namespace PowerUnlimited.Classen
             {
                 Debug.WriteLine("Er is een server error. Error: " + e.Message);
             }
-            return null;
+            return account;
         }
         
         /// <summary>
